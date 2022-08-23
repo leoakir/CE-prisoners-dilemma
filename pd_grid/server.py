@@ -19,19 +19,6 @@ model_params = {
     "penalty_max": mesa.visualization.Slider("Max Penalty", 100.0, 10.0, 200.0, 1.0)
 }
 
-# chart = mesa.visualization.ChartModule(
-#     [{
-#         "Label": "Priviledged_Agents",
-#         "Color": "#6C6CFF"
-#     },
-#     {
-#         "Label": "Dispriviledged_Agents",
-#         "Color": "#FF6C6C"
-#     },
-#     ],
-#     data_collector_name="datacollector"
-# )
-
 chart = mesa.visualization.ChartModule(
     [{
         "Label": "Lifecycle_Diff",
@@ -50,6 +37,14 @@ chart_extinction = mesa.visualization.ChartModule(
     data_collector_name="datacollector"
 )
 
+chart_disp_prop = mesa.visualization.ChartModule(
+    [{
+        "Label": "Dispriviledged_Agents_Proportion",
+        "Color": "#6C6CFF"
+    }
+    ],
+    data_collector_name="datacollector"
+)
 
 piechart_priv = mesa.visualization.PieChartModule(
     [{
@@ -79,5 +74,5 @@ piechart_disp = mesa.visualization.PieChartModule(
 
 
 server = mesa.visualization.ModularServer(
-    PdGrid, [canvas_element, chart, chart_extinction, piechart_priv, piechart_disp], "Prisoner's Dilemma", model_params
+    PdGrid, [canvas_element, chart, chart_extinction, chart_disp_prop, piechart_priv, piechart_disp], "Prisoner's Dilemma", model_params
 )

@@ -1,6 +1,6 @@
 import mesa
 
-from agent import PDAgent
+from .agent import PDAgent
 
 def compute_age_diff(model):
     disp_age = 0
@@ -29,41 +29,17 @@ def compute_age_diff(model):
     if avg_disp_age == 0: return 0
     else: return (1- avg_priv_age/avg_disp_age/model.penalty)*100
 
-def compute_coop_disp_prop(model):
-    l1 = len([a for a in model.schedule.agents if a.move == "C" and a.disp == 1])
-    l2 = len([a for a in model.schedule.agents if a.disp == 1])
+def compute_disp_prop(model):
+    l1 = len([a for a in model.schedule.agents if a.disp == 1])
 
-    if l2 == 0: return 0
-    else: return l1/l2
-def compute_coop_priv_prop(model):
-    l1 = len([a for a in model.schedule.agents if a.move == "C" and a.disp == 0])
-    l2 = len([a for a in model.schedule.agents if a.disp == 0])
+    return (l1/2500)*100
 
-    if l2 == 0: return 0
-    else: return l1/l2
-def compute_comp_disp_prop(model):
-    l1 = len([a for a in model.schedule.agents if a.move == "D" and a.disp == 1])
-    l2 = len([a for a in model.schedule.agents if a.disp == 1])
-
-    if l2 == 0: return 0
-    else: return l1/l2
-def compute_comp_priv_prop(model):
-    l1 = len([a for a in model.schedule.agents if a.move == "D" and a.disp == 0])
-    l2 = len([a for a in model.schedule.agents if a.disp == 0])
-
-    if l2 == 0: return 0
-    else: return l1/l2
 
 def store_disp_extinction(model):
     if len([a for a in model.schedule.agents if a.disp == 1]) > 0:
         model.disp_duration = model.total_steps
 
     return model.disp_duration
-
-
-# def compute_age_standard_deviation(model):
-
-
 
 class PdGrid(mesa.Model):
     """Model class for iterated, spatial prisoner's dilemma model."""
@@ -111,16 +87,7 @@ class PdGrid(mesa.Model):
 
         self.datacollector = mesa.DataCollector(
             {
-                # "Priviledged_Agents": lambda m: len(
-                #     [a for a in m.schedule.agents if a.disp == 0]
-                # ),
-                # "Dispriviledged_Agents": lambda m: len(
-                #     [a for a in m.schedule.agents if a.disp == 1]
-                # ),
-                # "Cooperating_Priviledged_Agents": compute_coop_priv_prop,
-                # "Competing_Priviledged_Agents": compute_comp_priv_prop,
-                # "Cooperating_Dispriviledged_Agents": compute_coop_disp_prop,
-                # "Competing_Dispriviledged_Agents": compute_comp_disp_prop,
+                "Dispriviledged_Agents_Proportion": compute_disp_prop,
                 "Lifecycle_Diff": compute_age_diff,
                 "Dispriviledged_Agents_Duration": store_disp_extinction
             }
