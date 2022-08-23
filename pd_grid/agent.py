@@ -17,21 +17,38 @@ class PDAgent(mesa.Agent):
         super().__init__(pos, model)
         self.pos = pos
         self.score = 0
+        self.age = 0
         if starting_move:
             self.move = starting_move
         else:
             self.move = self.random.choice(["C", "D"])
-        self.next_move = None
+            self.next_move = self.move
+            self.disp = self.random.choice([0, 1])
 
     @property
     def isCooroperating(self):
         return self.move == "C"
 
+    def isPenalty(self):
+        return self.penalty > 1
+
     def step(self):
         """Get the best neighbor's move, and change own move accordingly if better than own score."""
-        neighbors = self.model.grid.get_neighbors(self.pos, True, include_center=True)
-        best_neighbor = max(neighbors, key=lambda a: a.score)
+
+        matrixs = self.model.grid.get_neighbors(self.pos, True, include_center=True)
+        neighbors = self.model.grid.get_neighbors(self.pos, True, include_center=False)
+        best_neighbor = min(matrixs, key=lambda a: a.score)
         self.next_move = best_neighbor.move
+        self.age += 1
+
+        if self.score > self.model.max_pen:
+            ran = self.random.choice(neighbors)
+            self.move = self.random.choice(["C", "D"])
+            self.next_move = self.move
+            self.model.dead_agents.append((self.disp, self.age))
+            self.disp = ran.disp
+            self.score = 0
+            self.age = 0
 
         if self.model.schedule_type != "Simultaneous":
             self.advance()
@@ -41,9 +58,13 @@ class PDAgent(mesa.Agent):
         self.score += self.increment_score()
 
     def increment_score(self):
+        if self.disp:
+            self.penalty = self.model.penalty
+        else:
+            self.penalty = 1.0
         neighbors = self.model.grid.get_neighbors(self.pos, True)
         if self.model.schedule_type == "Simultaneous":
             moves = [neighbor.next_move for neighbor in neighbors]
         else:
             moves = [neighbor.move for neighbor in neighbors]
-        return sum(self.model.payoff[(self.move, move)] for move in moves)
+        return sum(self.penalty * self.model.payoff[(self.move, move)] for move in moves)
