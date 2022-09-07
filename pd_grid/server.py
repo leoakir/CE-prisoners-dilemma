@@ -46,6 +46,33 @@ chart_disp_prop = mesa.visualization.ChartModule(
     data_collector_name="datacollector"
 )
 
+piechart_priv = mesa.visualization.PieChartModule(
+    [{
+        "Label": "Cooperating_Priviledged_Agents",
+        "Color": "#6C6CFF"
+    },
+    {
+        "Label": "Competing_Priviledged_Agents",
+        "Color": "#FF6C6C"
+    },
+    ],
+    data_collector_name="datacollector"
+)
+
+piechart_disp = mesa.visualization.PieChartModule(
+    [{
+        "Label": "Cooperating_Dispriviledged_Agents",
+        "Color": "green"
+    },
+    {
+        "Label": "Competing_Dispriviledged_Agents",
+        "Color": "yellow"
+    }
+    ],
+    data_collector_name="datacollector"
+)
+
+
 server = mesa.visualization.ModularServer(
-    PdGrid, [canvas_element, chart, chart_extinction, chart_disp_prop], "Prisoner's Dilemma", model_params
+    PdGrid, [canvas_element, chart, chart_extinction, chart_disp_prop, piechart_priv, piechart_disp], "Prisoner's Dilemma", model_params
 )
