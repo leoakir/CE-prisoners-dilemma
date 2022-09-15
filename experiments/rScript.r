@@ -5,10 +5,29 @@ hist(dataset$Dispriviledged_Agents_Proportion[dataset$penalty_mul!=1], main = "P
 hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_mul!=1], main="Duração para todos experimentos", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
 
 hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.00], main="0% de penalidade (controle)", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.00 & dataset$penalty_max==50], main="0% de penalidade (controle)", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.00 & dataset$penalty_max==100], main="0% de penalidade (controle)", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.00 & dataset$penalty_max==200], main="0% de penalidade (controle)", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+
 hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.05], main="5% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.05 & dataset$penalty_max==50], main="5% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.05 & dataset$penalty_max==100], main="5% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.05 & dataset$penalty_max==200], main="5% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+
 hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.25], main="25% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.25 & dataset$penalty_max==50], main="25% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.25 & dataset$penalty_max==100], main="25% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.25 & dataset$penalty_max==200], main="25% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+
 hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.5], main="50% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.5 & dataset$penalty_max==50], main="50% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.5 & dataset$penalty_max==100], main="50% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.5 & dataset$penalty_max==200], main="50% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+
 hist(dataset$Lifecycle_Diff[dataset$penalty_mul==2.0], main="100% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==2.0 & dataset$penalty_max==50], main="100% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==2.0 & dataset$penalty_max==100], main="100% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==2.0 & dataset$penalty_max==200], main="100% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
 
 hist(dataset$Lifecycle_Diff[dataset$penalty_max==50 & dataset$penalty_mul!=1],breaks=100, main="Limite de score 50", xlab = "Diferença de vida média (%)", ylab = "Frequência")
 hist(dataset$Lifecycle_Diff[dataset$penalty_max==100 & dataset$penalty_mul!=1],breaks=100, main="Limite de score 100", xlab = "Diferença de vida média (%)", ylab = "Frequência")
