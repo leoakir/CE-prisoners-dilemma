@@ -2,44 +2,38 @@ import mesa
 
 from .agent import PDAgent
 
-def compute_age_diff(model):
-    disp_age = 0
-    disp_n = 0
+def compute_avg_priv_age(model):
     priv_age = 0
     priv_n = 0
-
     for a, b in model.dead_agents:
-        if a == 1:
-            disp_n += 1
-            disp_age += b
-        else:
+        if a == 0:
             priv_n += 1
             priv_age += b
 
     if priv_n == 0:
-        avg_priv_age = 0
+        return 0
     else:
-        avg_priv_age = priv_age/priv_n
+        return priv_age/priv_n
+
+def compute_avg_disp_age(model):
+    disp_age = 0
+    disp_n = 0
+    for a, b in model.dead_agents:
+        if a == 1:
+            disp_n += 1
+            disp_age += b
 
     if disp_n == 0:
-        avg_disp_age = 0
+        return 0
     else:
-        avg_disp_age = disp_age/disp_n
+        return disp_age/disp_n
 
-    if avg_disp_age == 0: return 0
-    else: return (1- avg_priv_age/avg_disp_age/model.penalty)*100
+def compute_age_diff(model):
+    avg_priv_age = compute_avg_priv_age(model)
+    avg_disp_age = compute_avg_disp_age(model)
 
-def compute_disp_prop(model):
-    l1 = len([a for a in model.schedule.agents if a.disp == 1])
-
-    return (l1/2500)*100
-
-
-def store_disp_extinction(model):
-    if len([a for a in model.schedule.agents if a.disp == 1]) > 0:
-        model.disp_duration = model.total_steps
-
-    return model.disp_duration
+    if avg_priv_age == 0: return 0
+    else: return (1-avg_disp_age/avg_priv_age)*100
 
 class PdGrid(mesa.Model):
     """Model class for iterated, spatial prisoner's dilemma model."""
@@ -77,6 +71,8 @@ class PdGrid(mesa.Model):
         self.total_steps = 0
         self.disp_duration = 0
         self.dead_agents = []
+        self.avg_disp = 0
+        self.avg_priv = 0
 
         # Create agents
         for x in range(width):
@@ -87,9 +83,9 @@ class PdGrid(mesa.Model):
 
         self.datacollector = mesa.DataCollector(
             {
-                "Dispriviledged_Agents_Proportion": compute_disp_prop,
                 "Lifecycle_Diff": compute_age_diff,
-                "Dispriviledged_Agents_Duration": store_disp_extinction
+                "Avg_Priv_Age": compute_avg_priv_age,
+                "Avg_Disp_Age": compute_avg_disp_age
             }
         )
 
@@ -101,6 +97,8 @@ class PdGrid(mesa.Model):
         self.total_steps += 1
         # collect data
         self.datacollector.collect(self)
+        if len([a for a in self.schedule.agents if a.disp == 1]) == 0:
+            self.running = False
 
     def run(self, n):
         """Run the model for n steps."""

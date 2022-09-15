@@ -22,7 +22,7 @@ model_params = {
 chart = mesa.visualization.ChartModule(
     [{
         "Label": "Lifecycle_Diff",
-        "Color": "#FF6C6C"
+        "Color": "red"
     }
     ],
     data_collector_name="datacollector"
@@ -30,8 +30,8 @@ chart = mesa.visualization.ChartModule(
 
 chart_extinction = mesa.visualization.ChartModule(
     [{
-        "Label": "Dispriviledged_Agents_Duration",
-        "Color": "#6C6CFF"
+        "Label": "Avg_Disp_Age",
+        "Color": "blue"
     }
     ],
     data_collector_name="datacollector"
@@ -39,8 +39,8 @@ chart_extinction = mesa.visualization.ChartModule(
 
 chart_disp_prop = mesa.visualization.ChartModule(
     [{
-        "Label": "Dispriviledged_Agents_Proportion",
-        "Color": "#6C6CFF"
+        "Label": "Avg_Priv_Age",
+        "Color": "green"
     }
     ],
     data_collector_name="datacollector"

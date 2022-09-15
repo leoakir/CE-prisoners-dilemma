@@ -2,16 +2,16 @@ from mesa import *
 from pd_grid.model import PdGrid
 import numpy as np
 
-params = {"penalty_mul": (1.00, 1.05, 1.25, 1.5, 2.0), "penalty_max": (50.0, 100.0, 200.0)}
+params = {"penalty_mul": (1.05, 1.10, 1.25, 1.5, 2.0), "penalty_max": (10, 50.0, 100.0, 200.0)}
 
 # define a quantidade de experimentos
 # que serão repetidos para cada configuração de valores
 # para as variáveis (de controle e independentes)
-experiments_per_parameter_configuration = 50
+experiments_per_parameter_configuration = 100
 
 # quantidade de passos suficientes para que a simulação
 # alcance um estado de equilíbrio (steady state)
-max_steps_per_simulation = 600
+max_steps_per_simulation = 1000
 
 results = batch_run(
     PdGrid,
@@ -29,7 +29,7 @@ results_df = pd.DataFrame(results)
 
 # gera uma string com data e hora
 from datetime import datetime
-now = str(datetime.now()).replace(":","-").replace(" ","-")
+now = str(datetime.now()).replace(":","").replace(" ","").replace("-","").replace(".","")
 
 # define um prefixo para o nome do arquivo que vai guardar os dados do modelo
 # contendo alguns dados dos experimentos
