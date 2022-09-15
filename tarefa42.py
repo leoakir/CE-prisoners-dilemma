@@ -2,7 +2,7 @@ from mesa import *
 from pd_grid.model import PdGrid
 import numpy as np
 
-params = {"penalty_mul": (1.05, 1.10, 1.25, 1.5, 2.0), "penalty_max": (10, 50.0, 100.0, 200.0)}
+params = {"penalty_mul": (1.05, 1.10, 1.25, 1.5, 2.0), "penalty_max": (100.0, 200.0), "coop": (True, False)}
 
 # define a quantidade de experimentos
 # que serão repetidos para cada configuração de valores

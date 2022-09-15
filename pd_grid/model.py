@@ -47,12 +47,13 @@ class PdGrid(mesa.Model):
     # This dictionary holds the payoff for this agent,
     # keyed on: (my_move, other_move)
 
-    payoff = {("C", "C"): 2, ("C", "D"): 1, ("D", "C"): 0, ("D", "D"): 3}
+    # payoff = {("C", "C"): 1.5, ("C", "D"): 1.5, ("D", "C"): 1.5, ("D", "D"): 1.5}
+    # payoff = {("C", "C"): 1, ("C", "D"): 3, ("D", "C"): 0, ("D", "D"): 2}
     # payoff = {("C", "C"): 1, ("C", "D"): 0, ("D", "C"): 1.6, ("D", "D"): 0}
 
     def __init__(
         self, width=50, height=50, schedule_type="Sequential", penalty_mul=1.05,
-        penalty_max = 100.0, payoffs=None, seed=None
+        penalty_max = 100.0, coop=True, payoffs=None, seed=None
     ):
         """
         Create a new Spatial Prisoners' Dilemma Model.
@@ -73,6 +74,11 @@ class PdGrid(mesa.Model):
         self.dead_agents = []
         self.avg_disp = 0
         self.avg_priv = 0
+
+        if coop:
+            self.payoff = {("C", "C"): 1, ("C", "D"): 3, ("D", "C"): 0, ("D", "D"): 2}
+        else:
+            self.payoff = {("C", "C"): 2, ("C", "D"): 2, ("D", "C"): 2, ("D", "D"): 2}
 
         # Create agents
         for x in range(width):
