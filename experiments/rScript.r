@@ -134,3 +134,27 @@ hist(dataset$Avg_Priv_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & 
 
 hist(dataset$Avg_Disp_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==0], main="100% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
 hist(dataset$Avg_Disp_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==1], main="100% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+
+# ---------------------------------- Testes Estatisticos -----------------------
+
+sink(file = "r_output.txt")
+
+t.test(dataset$Lifecycle_Diff[dataset$coop==0], dataset$Lifecycle_Diff[dataset$coop==1], alternative = c("greater"))
+t.test(dataset$Lifecycle_Diff[dataset$coop==0], dataset$Lifecycle_Diff[dataset$coop==1], alternative = c("less"))
+t.test(dataset$Avg_Priv_Age[dataset$coop==0], dataset$Avg_Priv_Age[dataset$coop==1], alternative = c("less"))
+t.test(dataset$Avg_Disp_Age[dataset$coop==0], dataset$Avg_Disp_Age[dataset$coop==1], alternative = c("less"))
+t.test(dataset$Step[dataset$coop==0], dataset$Step[dataset$coop==1], alternative = c("less"))
+
+regLD <- lm(formula = Lifecycle_Diff ~ coop, data = dataset)
+summary(regLD)
+
+regAPA <- lm(formula = Avg_Priv_Age ~ coop, data = dataset)
+summary(regAPA)
+
+regADA <- lm(formula = Avg_Disp_Age ~ coop, data = dataset)
+summary(regADA)
+
+regS <- lm(formula = Step ~ coop, data = dataset)
+summary(regS)
+
+sink(file = NULL)
