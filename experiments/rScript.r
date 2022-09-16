@@ -1,39 +1,136 @@
-dataset <- PrisonerDilemmaModel_model_data_iter_50_steps_600_2022_08_23_05_35_50_645017
+dataset <- PrisonerDilemmaModel_model_data_iter_100_steps_1000_20220915190403103617
 
-hist(dataset$Lifecycle_Diff[dataset$penalty_mul!=1], breaks=100, main = "Diferença de vida média para todos experimentos", xlab = "Diferença de vida média (%)", ylab = "Frequência")
-hist(dataset$Dispriviledged_Agents_Proportion[dataset$penalty_mul!=1], main = "Proporção final para todos experimentos", xlab = "Proporção final de agentes desprivilegiados (%)")
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_mul!=1], main="Duração para todos experimentos", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
+#----------------------------------- Multiplicador 5% ------------------------
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.05 & dataset$penalty_max==100 & dataset$coop==0], main="5% de penalidade\nLimite de score 100\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.05 & dataset$penalty_max==100 & dataset$coop==1], main="5% de penalidade\nLimite de score 100\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.05 & dataset$penalty_max==100 & dataset$coop==0], main="5% de penalidade\nLimite de score 100\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.05 & dataset$penalty_max==100 & dataset$coop==1], main="5% de penalidade\nLimite de score 100\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
 
-hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.00], main="0% de penalidade (controle)", xlab = "Diferença de vida média (%)", ylab = "Frequência")
-hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.05], main="5% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
-hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.25], main="25% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
-hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.5], main="50% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
-hist(dataset$Lifecycle_Diff[dataset$penalty_mul==2.0], main="100% de penalidade", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.05 & dataset$penalty_max==100 & dataset$coop==0], main="5% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.05 & dataset$penalty_max==100 & dataset$coop==1], main="5% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
 
-hist(dataset$Lifecycle_Diff[dataset$penalty_max==50 & dataset$penalty_mul!=1],breaks=100, main="Limite de score 50", xlab = "Diferença de vida média (%)", ylab = "Frequência")
-hist(dataset$Lifecycle_Diff[dataset$penalty_max==100 & dataset$penalty_mul!=1],breaks=100, main="Limite de score 100", xlab = "Diferença de vida média (%)", ylab = "Frequência")
-hist(dataset$Lifecycle_Diff[dataset$penalty_max==200 & dataset$penalty_mul!=1],breaks=100, main="Limite de score 200", xlab = "Diferença de vida média (%)", ylab = "Frequência")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.05 & dataset$penalty_max==100 & dataset$coop==0], main="5% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.05 & dataset$penalty_max==100 & dataset$coop==1], main="5% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
 
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_mul==1.00],xlim=c(0,600), main="0% de penalidade (controle)", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_mul==1.05], main="5% de penalidade", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_mul==1.05 & dataset$penalty_max!=200], breaks=15, main="5% de penalidade (sem limite de 200)", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_mul==1.25], main="25% de penalidade", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_mul==1.5], main="50% de penalidade", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_mul==2.0], main="100% de penalidade", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.05 & dataset$penalty_max==200 & dataset$coop==0], main="5% de penalidade\nLimite de score 200\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.05 & dataset$penalty_max==200 & dataset$coop==1], main="5% de penalidade\nLimite de score 200\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.05 & dataset$penalty_max==200 & dataset$coop==0], main="5% de penalidade\nLimite de score 200\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.05 & dataset$penalty_max==200 & dataset$coop==1], main="5% de penalidade\nLimite de score 200\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
 
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_max==50 & dataset$penalty_mul!=1], main="Limite de score 50", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_max==100 & dataset$penalty_mul!=1], main="Limite de score 100", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_max==200 & dataset$penalty_mul!=1], main="Limite de score 200", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
-hist(dataset$Dispriviledged_Agents_Duration[dataset$penalty_max==200 & dataset$penalty_mul!=1 & dataset$penalty_mul!=1.05], main="Limite de score 200 (sem penalidade 5%)", xlab = "Duração dos agentes desprivilegiados (steps)", ylab = "Frequência")
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.05 & dataset$penalty_max==200 & dataset$coop==0], main="5% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.05 & dataset$penalty_max==200 & dataset$coop==1], main="5% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
 
-hist(dataset$Dispriviledged_Agents_Proportion[dataset$penalty_mul==1.00],breaks=20,xlim=c(0,100), main = "0% de penalidade (controle)", xlab = "Proporção final de agentes desprivilegiados (%)")
-hist(dataset$Dispriviledged_Agents_Proportion[dataset$penalty_mul==1.05 & dataset$Dispriviledged_Agents_Duration == 600],breaks=20,xlim=c(0,7), main = "5% de penalidade, simulações com agentes restantes", xlab = "Proporção final de agentes desprivilegiados (%)")
-hist(dataset$Dispriviledged_Agents_Proportion[dataset$penalty_mul==1.25 | dataset$penalty_mul==1.5 | dataset$penalty_mul==2],xlim=c(0,10), main = "25%, 50%, 100% de penalidade", xlab = "Proporção final de agentes desprivilegiados (%)")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.05 & dataset$penalty_max==200 & dataset$coop==0], main="5% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.05 & dataset$penalty_max==200 & dataset$coop==1], main="5% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
 
-lm(dataset$penalty_mul ~ dataset$Lifecycle_Diff)
-lm(dataset$penalty_mul ~ dataset$Dispriviledged_Agents_Proportion)
-lm(dataset$penalty_mul ~ dataset$Dispriviledged_Agents_Duration)
+#----------------------------------- Multiplicador 10% ------------------------
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.1 & dataset$penalty_max==100 & dataset$coop==0], main="10% de penalidade\nLimite de score 100\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.1 & dataset$penalty_max==100 & dataset$coop==1], main="10% de penalidade\nLimite de score 100\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.1 & dataset$penalty_max==100 & dataset$coop==0], main="10% de penalidade\nLimite de score 100\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.1 & dataset$penalty_max==100 & dataset$coop==1], main="10% de penalidade\nLimite de score 100\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
 
-lm(dataset$penalty_max ~ dataset$Lifecycle_Diff)
-lm(dataset$penalty_max ~ dataset$Dispriviledged_Agents_Proportion)
-lm(dataset$penalty_max ~ dataset$Dispriviledged_Agents_Duration)
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.1 & dataset$penalty_max==100 & dataset$coop==0], main="10% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.1 & dataset$penalty_max==100 & dataset$coop==1], main="10% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.1 & dataset$penalty_max==100 & dataset$coop==0], main="10% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.1 & dataset$penalty_max==100 & dataset$coop==1], main="10% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.1 & dataset$penalty_max==200 & dataset$coop==0], main="10% de penalidade\nLimite de score 200\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.1 & dataset$penalty_max==200 & dataset$coop==1], main="10% de penalidade\nLimite de score 200\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.1 & dataset$penalty_max==200 & dataset$coop==0], main="10% de penalidade\nLimite de score 200\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.1 & dataset$penalty_max==200 & dataset$coop==1], main="10% de penalidade\nLimite de score 200\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.1 & dataset$penalty_max==200 & dataset$coop==0], main="10% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.1 & dataset$penalty_max==200 & dataset$coop==1], main="10% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.1 & dataset$penalty_max==200 & dataset$coop==0], main="10% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.1 & dataset$penalty_max==200 & dataset$coop==1], main="10% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+
+#----------------------------------- Multiplicador 25% ------------------------
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.25 & dataset$penalty_max==100 & dataset$coop==0], main="25% de penalidade\nLimite de score 100\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.25 & dataset$penalty_max==100 & dataset$coop==1], main="25% de penalidade\nLimite de score 100\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.25 & dataset$penalty_max==100 & dataset$coop==0], main="25% de penalidade\nLimite de score 100\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.25 & dataset$penalty_max==100 & dataset$coop==1], main="25% de penalidade\nLimite de score 100\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.25 & dataset$penalty_max==100 & dataset$coop==0], main="25% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.25 & dataset$penalty_max==100 & dataset$coop==1], main="25% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.25 & dataset$penalty_max==100 & dataset$coop==0], main="25% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.25 & dataset$penalty_max==100 & dataset$coop==1], main="25% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.25 & dataset$penalty_max==200 & dataset$coop==0], main="25% de penalidade\nLimite de score 200\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.25 & dataset$penalty_max==200 & dataset$coop==1], main="25% de penalidade\nLimite de score 200\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequênc 100ia")
+hist(dataset$Step[dataset$penalty_mul==1.25 & dataset$penalty_max==200 & dataset$coop==0], main="25% de penalidade\nLimite de score 200\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.25 & dataset$penalty_max==200 & dataset$coop==1], main="25% de penalidade\nLimite de score 200\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequênc 100ia")
+
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.25 & dataset$penalty_max==200 & dataset$coop==0], main="25% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.25 & dataset$penalty_max==200 & dataset$coop==1], main="25% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequênc 100ia")
+
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.25 & dataset$penalty_max==200 & dataset$coop==0], main="25% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.25 & dataset$penalty_max==200 & dataset$coop==1], main="25% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequênc 100ia")
+
+#----------------------------------- Multiplicador 50% ------------------------
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.5 & dataset$penalty_max==100 & dataset$coop==0], main="50% de penalidade\nLimite de score 100\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequênc 200ia")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.5 & dataset$penalty_max==100 & dataset$coop==1], main="50% de penalidade\nLimite de score 100\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==1.5 & dataset$penalty_max==100 & dataset$coop==0], main="50% de penalidade\nLimite de score 100\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequênc 200ia")
+hist(dataset$Step[dataset$penalty_mul==1.5 & dataset$penalty_max==100 & dataset$coop==1], main="50% de penalidade\nLimite de score 100\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.5 & dataset$penalty_max==100 & dataset$coop==0], main="50% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequênc 200ia")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.5 & dataset$penalty_max==100 & dataset$coop==1], main="50% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.5 & dataset$penalty_max==100 & dataset$coop==0], main="50% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequênc 200ia")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.5 & dataset$penalty_max==100 & dataset$coop==1], main="50% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.5 & dataset$penalty_max==200 & dataset$coop==0], main="50% de penalidade\nLimite de score 200\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequênc 100ia")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==1.5 & dataset$penalty_max==200 & dataset$coop==1], main="50% de penalidade\nLimite de score 200\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequência 200")
+hist(dataset$Step[dataset$penalty_mul==1.5 & dataset$penalty_max==200 & dataset$coop==0], main="50% de penalidade\nLimite de score 200\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequênc 100ia")
+hist(dataset$Step[dataset$penalty_mul==1.5 & dataset$penalty_max==200 & dataset$coop==1], main="50% de penalidade\nLimite de score 200\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência 200")
+
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.5 & dataset$penalty_max==200 & dataset$coop==0], main="50% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequênc 100ia")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==1.5 & dataset$penalty_max==200 & dataset$coop==1], main="50% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequência 200")
+
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.5 & dataset$penalty_max==200 & dataset$coop==0], main="50% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequênc 100ia")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==1.5 & dataset$penalty_max==200 & dataset$coop==1], main="50% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência 200")
+
+#----------------------------------- Multiplicador 100% ------------------------
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==2.0 & dataset$penalty_max==100 & dataset$coop==0], main="100% de penalidade\nLimite de score 100\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==2.0 & dataset$penalty_max==100 & dataset$coop==1], main="100% de penalidade\nLimite de score 100\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==2.0 & dataset$penalty_max==100 & dataset$coop==0], main="100% de penalidade\nLimite de score 100\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==2.0 & dataset$penalty_max==100 & dataset$coop==1], main="100% de penalidade\nLimite de score 100\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==100 & dataset$coop==0], main="100% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==100 & dataset$coop==1], main="100% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==100 & dataset$coop==0], main="100% de penalidade\nLimite de score 100\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==100 & dataset$coop==1], main="100% de penalidade\nLimite de score 100\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+
+par(mfrow=c(2,2))
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==0], main="100% de penalidade\nLimite de score 200\nCompetição", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Lifecycle_Diff[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==1], main="100% de penalidade\nLimite de score 200\nCooperação", xlab = "Diferença de vida média(%)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==0], main="100% de penalidade\nLimite de score 200\nCompetição", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Step[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==1], main="100% de penalidade\nLimite de score 200\nCooperação", xlab = "Extinção dos desprivilegiados(steps)", ylab = "Frequência")
+
+par(mfrow=c(2,2))
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==0], main="100% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Priv_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==1], main="100% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média privilegiados(steps)", ylab = "Frequência")
+
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==0], main="100% de penalidade\nLimite de score 200\nCompetição", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")
+hist(dataset$Avg_Disp_Age[dataset$penalty_mul==2.0 & dataset$penalty_max==200 & dataset$coop==1], main="100% de penalidade\nLimite de score 200\nCooperação", xlab = "Vida média desprivilegiados(steps)", ylab = "Frequência")

@@ -10,19 +10,20 @@ canvas_element = mesa.visualization.CanvasGrid(portrayPDAgent, 50, 50, 500, 500)
 model_params = {
     "height": 50,
     "width": 50,
-    "schedule_type": mesa.visualization.Choice(
-        "Scheduler type",
-        value="Sequential",
-        choices=list(PdGrid.schedule_types.keys()),
-    ),
+    "coop": mesa.visualization.Checkbox("Cooperation", True),
     "penalty_mul": mesa.visualization.Slider("Penalty", 1.05, 1.0, 2.0, 0.05),
-    "penalty_max": mesa.visualization.Slider("Max Penalty", 100.0, 10.0, 200.0, 1.0)
+    "penalty_max": mesa.visualization.Slider("Max Penalty", 100.0, 10.0, 200.0, 1.0),
+    "schedule_type": mesa.visualization.Choice(
+    "Scheduler type",
+    value="Sequential",
+    choices=list(PdGrid.schedule_types.keys()),
+    )
 }
 
 chart = mesa.visualization.ChartModule(
     [{
         "Label": "Lifecycle_Diff",
-        "Color": "#FF6C6C"
+        "Color": "red"
     }
     ],
     data_collector_name="datacollector"
@@ -30,8 +31,8 @@ chart = mesa.visualization.ChartModule(
 
 chart_extinction = mesa.visualization.ChartModule(
     [{
-        "Label": "Dispriviledged_Agents_Duration",
-        "Color": "#6C6CFF"
+        "Label": "Avg_Disp_Age",
+        "Color": "blue"
     }
     ],
     data_collector_name="datacollector"
@@ -39,8 +40,8 @@ chart_extinction = mesa.visualization.ChartModule(
 
 chart_disp_prop = mesa.visualization.ChartModule(
     [{
-        "Label": "Dispriviledged_Agents_Proportion",
-        "Color": "#6C6CFF"
+        "Label": "Avg_Priv_Age",
+        "Color": "green"
     }
     ],
     data_collector_name="datacollector"
