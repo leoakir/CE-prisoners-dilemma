@@ -74,6 +74,7 @@ class PdGrid(mesa.Model):
         self.dead_agents = []
         self.avg_disp = 0
         self.avg_priv = 0
+        self.coop = coop
 
         if coop:
             self.payoff = {("C", "C"): 1, ("C", "D"): 3, ("D", "C"): 0, ("D", "D"): 2}

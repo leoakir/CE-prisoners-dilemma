@@ -21,7 +21,10 @@ class PDAgent(mesa.Agent):
         if starting_move:
             self.move = starting_move
         else:
-            self.move = self.random.choice(["C", "D"])
+            if self.model.coop:
+                self.move = self.random.choice(["C", "D"])
+            else:
+                self.move = "D"
             self.next_move = self.move
             self.disp = self.random.choice([0, 1])
 
@@ -43,7 +46,10 @@ class PDAgent(mesa.Agent):
 
         if self.score > self.model.max_pen:
             ran = self.random.choice(neighbors)
-            self.move = self.random.choice(["C", "D"])
+            if self.model.coop:
+                self.move = self.random.choice(["C", "D"])
+            else:
+                self.move = "D"
             self.next_move = self.move
             self.model.dead_agents.append((self.disp, self.age))
             self.disp = ran.disp
