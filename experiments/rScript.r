@@ -145,16 +145,39 @@ t.test(dataset$Avg_Priv_Age[dataset$coop==0], dataset$Avg_Priv_Age[dataset$coop=
 t.test(dataset$Avg_Disp_Age[dataset$coop==0], dataset$Avg_Disp_Age[dataset$coop==1], alternative = c("less"))
 t.test(dataset$Step[dataset$coop==0], dataset$Step[dataset$coop==1], alternative = c("less"))
 
-regLD <- lm(formula = Lifecycle_Diff ~ coop, data = dataset)
-summary(regLD)
+chi_table <- function(dataset_dvar, dataset_ivar1, dataset_ivar2){
+  data <- dataset_dvar[dataset$penalty_mul == dataset_ivar1 & dataset$penalty_max == dataset_ivar2]
 
-regAPA <- lm(formula = Avg_Priv_Age ~ coop, data = dataset)
-summary(regAPA)
+  min_value <- summary(data)[1]
+  q1_value <- summary(data)[2]
+  med_value <- summary(data)[4]
+  q3_value <- summary(data)[5]
+  max_value <- summary(data)[6]
 
-regADA <- lm(formula = Avg_Disp_Age ~ coop, data = dataset)
-summary(regADA)
+  breaks_values <- c(min_value, q1_value, med_value, q3_value, max_value)
 
-regS <- lm(formula = Step ~ coop, data = dataset)
-summary(regS)
+  LD_comp <- table(cut(data[dataset$coop == 0], breaks = breaks_values))
+  LD_coop <- table(cut(data[dataset$coop == 1], breaks = breaks_values))
+
+  crosstable <- as.table(rbind(LD_comp, LD_coop))
+  
+  dimnames(crosstable) <- list("Escolha dos Agentes" = c("Coompeticao", "Cooperacao"), "Variavel de Comparacao" = c("Baixo", "Medio-Baixo", "Medio-Alto", "Alto"))
+
+  chisq.test(crosstable)
+  crosstable
+}
+
+chi_table(dataset$Lifecycle_Diff, 1.05, 100)
+chi_table(dataset$Lifecycle_Diff, 1.1, 100)
+chi_table(dataset$Lifecycle_Diff, 1.25, 100)
+chi_table(dataset$Lifecycle_Diff, 1.5, 100)
+chi_table(dataset$Lifecycle_Diff, 2, 100)
+
+chisq.test(chi_table(dataset$Lifecycle_Diff, 1.05, 100))
+chisq.test(chi_table(dataset$Lifecycle_Diff, 1.1, 100))
+chisq.test(chi_table(dataset$Lifecycle_Diff, 1.25, 100))
+chisq.test(chi_table(dataset$Lifecycle_Diff, 1.5, 100))
+chisq.test(chi_table(dataset$Lifecycle_Diff, 2, 100))
+
 
 sink(file = NULL)
